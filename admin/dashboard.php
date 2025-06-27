@@ -5,7 +5,7 @@ include 'includes/config.php';
 $adminID = $_SESSION['admin_id'] ?? null;
 
 if (!$adminID) {
-    header("Location: ../admin_login.php");
+    header("Location: admin_login.php");
     exit();
 }
 
@@ -50,7 +50,7 @@ include 'includes/navbar.php';
         </div> 
         <div class="card" onclick="location.href='voters_voted.php'">
            <h4>Voters Voted:</h4>
-           <div class="bar" style="width: 100%;"></div>  
+           <div class="bar" style="width: <?= getBarWidth($votes, $maxValue) ?>%;"></div>  
         </div>
             <div class="card" onclick="location.href='ballot.php'">
                 <h4>Ballot Management</h4>
@@ -60,9 +60,18 @@ include 'includes/navbar.php';
                 <h4>Vote Tally</h4>
                 <div class="bar" style="width: 100%;"></div>
             </div>
+            <div class="card" onclick="location.href='manage_members.php'">
+                <h4>Manage Members</h4>
+                <div class="bar" style="width: 100%;"></div>
+            </div>
+            <div class="card" onclick="location.href='manage_candidates.php'">
+                <h4>Manage Candidates</h4>
+                <div class="bar" style="width: 100%;"></div>
+            </div>
         <div class="card" onclick="location.href='election_title.php'">
             <h4>Election Title</h4>
             <div class="bar" style="width: 100%;"></div>
+        
             
         </div>
     </div>
