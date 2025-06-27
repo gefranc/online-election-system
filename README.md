@@ -51,7 +51,7 @@ This is a web-based Election Management System designed to facilitate online vot
 6. Start the Application
 
   - Open your browser:
-  [http://localhost:3000/index.php](http://localhost/voting-system/index.php)
+  http://localhost/voting-system/index.php
 
 ---
 
