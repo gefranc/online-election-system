@@ -34,6 +34,7 @@
             <p>Secure digital voting solutions for your congregation's important decisions</p>
             <a href="#about" class="btn">Learn More</a>
             <a href="register.php" class="btn">Get Started</a>
+            <a href="register_member.php"  class="btn">Register as a member</a>
         </div>
     </section>
 
@@ -67,7 +68,7 @@
             <div class="section-content">
                 <h2>Contact Us</h2>
                 <p>Ready to implement secure online voting for your congregation? Contact our team to schedule a demo or get more information.</p>
-                <p>Email: info@churchvote.com<br>Phone: (800) 555-0199</p>
+                <p>Email: info@churchvote.com<br>Phone: +254770503943</p>                
                 <a href="#home" class="btn">Back to Top</a> 
             </div>
         </div>
