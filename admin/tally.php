@@ -232,54 +232,107 @@ $db->close();
     }
 
     function renderCharts() {
-      const ctxBar = document.getElementById('barChart').getContext('2d');
-      const ctxPie = document.getElementById('pieChart').getContext('2d');
+  const chartsContainer = document.querySelector(".charts");
+  chartsContainer.innerHTML = ""; // Clear old charts if any
 
-      const position = electionData.positions[0];
-      const labels = position.candidates.map(c => `${c.FirstName} ${c.LastName}`);
-      const data = position.candidates.map(c => parseInt(c.votes) || 0);
+  electionData.positions.forEach((position, index) => {
+    if (!position.candidates.length) return; // Skip if no candidates
 
-      new Chart(ctxBar, {
-        type: 'bar',
-        data: {
-          labels: labels,
-          datasets: [{
-            label: `Votes for ${position.title}`,
-            data: data,
-            backgroundColor: ['#4a6fa5', '#6d8cc0', '#8faadc', '#b4c7e7', '#d9e2f3'],
-            borderWidth: 1
-          }]
+    const labels = position.candidates.map(c => `${c.FirstName} ${c.LastName}`);
+    const data = position.candidates.map(c => parseInt(c.votes) || 0);
+
+    // Vibrant high-contrast color palette
+    const vibrantColors = [
+      '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231',
+      '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe',
+      '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000'
+    ];
+
+    // === BAR CHART ===
+    const barCanvas = document.createElement("canvas");
+    const barId = `barChart${index}`;
+    barCanvas.id = barId;
+    chartsContainer.appendChild(barCanvas);
+
+    new Chart(barCanvas.getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: `Votes for ${position.title}`,
+          data: data,
+          backgroundColor: vibrantColors.slice(0, data.length),
+          borderColor: '#333',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: `Bar Chart - ${position.title}`,
+            color: getComputedStyle(document.documentElement).getPropertyValue('--text-color')
+          },
+          legend: {
+            labels: {
+              color: getComputedStyle(document.documentElement).getPropertyValue('--text-color')
+            }
+          }
         },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: getComputedStyle(document.documentElement).getPropertyValue('--text-color')
+            }
+          },
+          x: {
+            ticks: {
+              color: getComputedStyle(document.documentElement).getPropertyValue('--text-color')
             }
           }
         }
-      });
+      }
+    });
 
-      new Chart(ctxPie, {
-        type: 'pie',
-        data: {
-          labels: labels,
-          datasets: [{
-            data: data,
-            backgroundColor: ['#4a6fa5', '#6d8cc0', '#8faadc', '#b4c7e7', '#d9e2f3'],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'right'
+    // === PIE CHART ===
+    const pieCanvas = document.createElement("canvas");
+    const pieId = `pieChart${index}`;
+    pieCanvas.id = pieId;
+    chartsContainer.appendChild(pieCanvas);
+
+    new Chart(pieCanvas.getContext('2d'), {
+      type: 'pie',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: vibrantColors.slice(0, data.length),
+          borderColor: '#fff',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: `Pie Chart - ${position.title}`,
+            color: getComputedStyle(document.documentElement).getPropertyValue('--text-color')
+          },
+          legend: {
+            position: 'right',
+            labels: {
+              color: getComputedStyle(document.documentElement).getPropertyValue('--text-color')
             }
           }
         }
-      });
-    }
+      }
+    });
+  });
+}
+
 
     function toggleTheme() {
       const current = localStorage.getItem('theme') === 'light' ? 'dark' : 'light';
