@@ -4,6 +4,12 @@ require 'config/config.php'; // DB connection
 
 $msg = "";
 
+if (isset($_SESSION['voter_id']) && !empty($_SESSION['voter_id'])) {
+    header("Location: dashboard.php");
+    exit();
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
@@ -93,6 +99,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="submit" value="Login">
         <p class="msg"><?= $msg ?></p>
         <p style="text-align:center;">Don't have an account? <a href="register.php">Register here</a></p>
+        <p style="text-align:center;margin-top:20px;">
+        <a href="candidate/candidate_login.php">Login as Candidate?</a>
+        </p>
+        
     </form>
 </body>
 </html>
