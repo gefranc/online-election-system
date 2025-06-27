@@ -67,14 +67,17 @@ while ($row = $positionsQuery->fetch_assoc()) {
 <body data-theme="<?php echo isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'light'; ?>">
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand text-white" href="#">Voting System</a>
+    <div class="logo">🛡️ ChurchVote</div>
       <div class="d-flex align-items-center">
+        <a href="candidate/application.php" class="btn btn-outline-light me-3">
+          <i class="fas fa-user-plus"></i> Candidate Application
+        </a>
         <button type="button" class="theme-toggle me-3" onclick="toggleTheme()">
           <i class="fas fa-moon"></i>
         </button>
         <div class="dropdown">
           <a class="nav-link dropdown-toggle d-flex align-items-center text-white" href="#" role="button" data-bs-toggle="dropdown">
-            <img src="../uploads/<?php echo $voter['Photo']; ?>" class="profile-img me-2">
+            <img src="uploads/<?php echo $voter['Photo']; ?>" class="profile-img me-2">
             <?php echo htmlspecialchars($voter['FirstName'] . ' ' . $voter['LastName']); ?>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
